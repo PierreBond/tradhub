@@ -35,7 +35,10 @@ export default function ItemCard({
       <Image
         src={item.image}
         alt={item.name}
-        className="w-full h-auto"
+        width={400}
+        height={400}
+        className="w-full h-auto object-cover"
+        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 25vw, 15vw"
         loading="lazy"
       />
       <div className="flex flex-col gap-2">
