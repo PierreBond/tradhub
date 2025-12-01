@@ -13,16 +13,16 @@ export default function BrowsePage() {
   const [items] = useState(mockBrowseItems);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('relevance');
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterOptions>({
     minPrice: 0,
     maxPrice: 10000,
     categories: [],
     distance: 100,
     conditions: [],
-    ratings: [],
+    ratings: [], // Assuming FilterOptions has this
   });
-  const [wishlist, setWishlist] = useState<Set>(new Set());
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [wishlist, setWishlist] = useState<Set<number>>(new Set());
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Filter and sort items
@@ -97,83 +97,93 @@ export default function BrowsePage() {
 
   return (
     <>
-      
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        
-          
-            Browse Items
-            Discover amazing items available for trade
-          
+        <header className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div>
+            <h1 className="text-3xl font-bold text-primary">Browse Items</h1>
+            <p className="text-muted-foreground">Discover amazing items available for trade</p>
+          </div>
 
-          
+          <div className="flex items-center space-x-4">
             {/* Sort Dropdown */}
             <select
-              className="bg-white border-2 border-neutral rounded-lg px-4 py-2 focus:border-accent focus:outline-none cursor-pointer"
+              className="cursor-pointer rounded-lg border-2 border-border bg-background px-4 py-2 focus:border-accent focus:outline-none"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
             >
-              Sort by Relevance
-              Price: Low to High
-              Price: High to Low
-              Newest First
-              Nearest First
-            
+              <option value="relevance">Sort by Relevance</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="newest">Newest First</option>
+              <option value="distance">Nearest First</option>
+            </select>
 
             {/* Search */}
-            
-              
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
               <input
                 type="text"
                 placeholder="Search items..."
-                className="bg-white border-2 border-neutral rounded-xl pl-10 pr-4 py-2 w-64 focus:border-accent focus:outline-none"
+                className="w-64 rounded-xl border-2 border-border bg-background py-2 pl-10 pr-4 focus:border-accent focus:outline-none"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-            
-          
-        
+            </div>
+          </div>
+        </header>
 
-        
-          {/* Filter Sidebar */}
-          
-            
-          
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
+          <div className="lg:col-span-1">
+            <FilterSidebar filters={filters} onFilterChange={setFilters} />
+          </div>
 
           {/* Items Grid */}
-          
+          <div className="lg:col-span-3">
             {filteredItems.length === 0 ? (
-              
-                🔍
-                No items found
-                Try adjusting your filters or search terms
-              
+              <div className="flex h-96 flex-col items-center justify-center rounded-lg border-2 border-dashed bg-card text-center">
+                <div className="text-5xl">🔍</div>
+                <h3 className="mt-4 text-xl font-semibold">No items found</h3>
+                <p className="mt-2 text-muted-foreground">Try adjusting your filters or search terms</p>
+              </div>
             ) : (
-              <>
-                
-                  {filteredItems.map((item, index) => (
-                    
-                      
-                    
+              <div className="space-y-8">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                  {filteredItems.map((item) => (
+                    <motion.div key={item.id} layout>
+                      <BrowseCard
+                        item={item}
+                        isWishlisted={wishlist.has(item.id)}
+                        onToggleWishlist={() => toggleWishlist(item.id)}
+                        onViewDetails={() => openModal(item)}
+                      />
+                    </motion.div>
                   ))}
-                
+                </div>
 
                 {/* Load More Button */}
-                
+                <div className="text-center">
                   <button
-                    className="trade-button px-8 py-3"
+                    className="rounded-lg bg-primary px-8 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                     onClick={() => alert('Loading more items...')}
                   >
                     Load More Items
-                  
-                
-              </>
+                  </button>
+                </div>
+              </div>
             )}
-          
-        
-      
+          </div>
+        </div>
+      </div>
 
       {/* Item Detail Modal */}
-      
+      <ItemModal
+        isOpen={isModalOpen}
+        item={selectedItem}
+        onClose={closeModal}
+        onToggleWishlist={toggleWishlist}
+        isInWishlist={selectedItem ? wishlist.has(selectedItem.id) : false}
+      />
     </>
   );
 }
