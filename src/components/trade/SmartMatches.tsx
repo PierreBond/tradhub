@@ -22,26 +22,30 @@ export default function SmartMatches() {
   ];
 
   return (
-    
-      Smart Matches
-      
+    <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+      <h2 className="mb-4 text-lg font-semibold">Smart Matches</h2>
+      <div className="space-y-4">
         {matches.map((match) => (
-          
-            
-              
-            
-            
-              
-                {match.name}
-              
-              {match.matchText}
-            
-            
+          <div key={match.id} className="flex items-center space-x-4">
+            <Image
+              src={match.image}
+              alt={match.name}
+              width={64}
+              height={64}
+              className="h-16 w-16 rounded-md object-cover"
+            />
+            <div className="flex-grow">
+              <p className="font-semibold">{match.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {match.matchText}
+              </p>
+            </div>
+            <div className="font-medium">
               ${match.price}
-            
-          
+            </div>
+          </div>
         ))}
-      
-    
+      </div>
+    </div>
   );
 }

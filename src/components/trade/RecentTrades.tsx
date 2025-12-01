@@ -28,27 +28,31 @@ export default function RecentTrades() {
   ];
 
   return (
-    
-      Recent Trades
-      
+    <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+      <h2 className="mb-4 text-lg font-semibold">Recent Trades</h2>
+      <div className="space-y-4">
         {trades.map((trade, index) => (
-          
-            
-              
-                
-                  {trade.from} → {trade.to}
-                
-                {trade.time}
-              
-              = 0 ? 'text-green-600' : 'text-red-600'
-                }`}
-              >
-                {trade.profit >= 0 ? '+' : ''}${trade.profit}
-              
-            
-          
+          <motion.div
+            key={trade.id}
+            className="flex items-center justify-between"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            <div>
+              <p className="font-medium">
+                {trade.from} → {trade.to}
+              </p>
+              <p className="text-sm text-muted-foreground">{trade.time}</p>
+            </div>
+            <div
+              className={`font-semibold ${trade.profit >= 0 ? 'text-green-600' : 'text-red-600'}`}
+            >
+              {trade.profit >= 0 ? '+' : ''}${trade.profit}
+            </div>
+          </motion.div>
         ))}
-      
-    
+      </div>
+    </div>
   );
 }
