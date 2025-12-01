@@ -34,7 +34,7 @@ export default function SmartMatches() {
               height={64}
               className="h-16 w-16 rounded-md object-cover"
             />
-            <div className="flex-grow">
+            <div className="grow">
               <p className="font-semibold">{match.name}</p>
               <p className="text-sm text-muted-foreground">
                 {match.matchText}

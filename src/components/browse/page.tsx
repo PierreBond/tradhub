@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { mockBrowseItems } from '@/lib/data';
 import { Item } from '@/lib/types';
-import BrowseCard from '@/components/browse/BrowseCard';
+import BrowseCard from '@/components/browse/BrowesCard';
 import FilterSidebar, { FilterOptions } from '@/components/browse/FilterSidebar';
 import ItemModal from '@/components/browse/ItemModal';
 import { Search } from 'lucide-react';
@@ -27,7 +27,7 @@ export default function BrowsePage() {
 
   // Filter and sort items
   const filteredItems = useMemo(() => {
-    let filtered = items.filter((item) => {
+    const filtered = items.filter((item) => {
       // Search filter
       const matchesSearch =
         item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -153,7 +153,7 @@ export default function BrowsePage() {
                     <motion.div key={item.id} layout>
                       <BrowseCard
                         item={item}
-                        isWishlisted={wishlist.has(item.id)}
+                        isInWishlist={wishlist.has(item.id)}
                         onToggleWishlist={() => toggleWishlist(item.id)}
                         onViewDetails={() => openModal(item)}
                       />

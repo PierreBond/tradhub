@@ -150,52 +150,52 @@ export default function ItemModal({
     </AnimatePresence>
   );
 }
-                    {!imageError ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                        onError={() => setImageError(true)}
-                      />
-                    ) : (
+//                     {!imageError ? (
+//                       <Image
+//                         src={item.image}
+//                         alt={item.name}
+//                         fill
+//                         className="object-cover"
+//                         onError={() => setImageError(true)}
+//                       />
+//                     ) : (
                       
-                        No Image Available
+//                         No Image Available
                       
-                    )}
+//                     )}
                   
 
                   
                     
-                      {item.seller}
+//                       {item.seller}
                     
                     
-                      ★★★★★
-                      {item.rating}
+//                       ★★★★★
+//                       {item.rating}
                     
                     
-                      {formatCondition(item.condition)}
+//                       {formatCondition(item.condition)}
                     
                   
                 
 
-                {/* Right Column - Details */}
+//                 {/* Right Column - Details */}
                 
                   
                     
-                      ${item.value.toLocaleString()}
+//                       ${item.value.toLocaleString()}
                     
                     
-                      {item.description}
+//                       {item.description}
                     
                   
 
-                  {/* Stats */}
+//                   {/* Stats */}
                   
                     
                       
-                        Trade Responsiveness
-                        {item.responsiveness}%
+//                         Trade Responsiveness
+//                         {item.responsiveness}%
                       
                       
                         
@@ -204,8 +204,8 @@ export default function ItemModal({
 
                     
                       
-                        Item Authenticity
-                        {item.authenticity}%
+//                         Item Authenticity
+//                         {item.authenticity}%
                       
                       
                         
@@ -214,8 +214,8 @@ export default function ItemModal({
 
                     
                       
-                        Shipping Speed
-                        {item.shipping}%
+//                         Shipping Speed
+//                         {item.shipping}%
                       
                       
                         
@@ -223,25 +223,25 @@ export default function ItemModal({
                     
                   
 
-                  {/* Actions */}
+//                   {/* Actions */}
                   
-                    <button
-                      className="trade-button flex-1"
-                      onClick={() => alert(`Trade proposal for ${item.name}`)}
-                    >
-                      Propose Trade
+//                     <button
+//                       className="trade-button flex-1"
+//                       onClick={() => alert(`Trade proposal for ${item.name}`)}
+//                     >
+//                       Propose Trade
                     
-                    <button
-                      className={`px-4 py-3 rounded-xl border-2 transition-all font-medium flex items-center space-x-2 ${
-                        isInWishlist
-                          ? 'bg-accent border-accent text-white'
-                          : 'border-neutral hover:border-accent hover:bg-accent/10'
-                      }`}
-                      onClick={() => onToggleWishlist(item.id)}
-                    >
+//                     <button
+//                       className={`px-4 py-3 rounded-xl border-2 transition-all font-medium flex items-center space-x-2 ${
+//                         isInWishlist
+//                           ? 'bg-accent border-accent text-white'
+//                           : 'border-neutral hover:border-accent hover:bg-accent/10'
+//                       }`}
+//                       onClick={() => onToggleWishlist(item.id)}
+//                     >
                       
                       
-                        {isInWishlist ? 'Wishlisted' : 'Wishlist'}
+//                         {isInWishlist ? 'Wishlisted' : 'Wishlist'}
                       
                     
                   
@@ -250,7 +250,7 @@ export default function ItemModal({
             
           
         
-      )}
+//       )}
     
-  );
-}
+//   );
+// }
